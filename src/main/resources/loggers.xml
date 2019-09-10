@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="eventLogger" class="spring.core.app.logger.ConsoleEventLogger"/>
+
+    <bean id="fileEventLogger" class="spring.core.app.logger.FileEventLogger" init-method="init">
+        <constructor-arg value="output.txt"/>
+    </bean>
+
+    <bean id="cacheEventLogger" class="spring.core.app.logger.CacheFileEventLogger" destroy-method="destroy" parent="fileEventLogger">
+        <constructor-arg index="1" value="5"/>
+    </bean>
+</beans>
