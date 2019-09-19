@@ -38,7 +38,6 @@ public class App {
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
         App app = (App) context.getBean("app");
-        app.client = new Client(1, "Igor Sas");
         Event event = (Event) context.getBean("event");
         event.setId(app.client.getId());
         event.setMessage(app.client.getGreeting());
