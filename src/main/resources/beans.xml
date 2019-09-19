@@ -5,4 +5,6 @@
 
     <import resource="loggers.xml"/>
     <import resource="others.xml"/>
+    <import resource="properies.xml"/>
+
 </beans>

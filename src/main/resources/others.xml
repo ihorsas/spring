@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="client" class="spring.core.app.Client">
-        <constructor-arg index="0" value="1"/>
-        <constructor-arg index="1" value="Igor Sas"/>
-        <property name="greeting" value="Yo, nigga ^-^"/>
+    <bean id="client" class="spring.core.app.Client"
+          c:fullName="${name}" p:greeting="${greeting}">
+        <constructor-arg index="0" value="${id}" />
+        <constructor-arg value="${name}" />
     </bean>
 
-    <bean id="app" class="spring.core.app.App" init-method="init">
-        <constructor-arg ref="client"/>
-        <constructor-arg ref="fileEventLogger"/>
-        <constructor-arg>
-            <map>
-                <entry key="INFO"
-                       value-ref="consoleEventLogger"/>
-                <entry key="ERROR"
-                       value-ref="combinedEventLogger"/>
-            </map>
-        </constructor-arg>
+    <util:map id="loggerMap">
+        <entry key="INFO" value-ref="consoleEventLogger" />
+        <entry key="ERROR" value-ref="combinedEventLogger" />
+    </util:map>
+
+    <bean id="app" class="spring.core.app.App">
+        <constructor-arg ref="client" />
+        <constructor-arg ref="cacheEventLogger" />
+        <constructor-arg ref="loggerMap"/>
     </bean>
 
     <bean id="event" class="spring.core.app.event.Event" scope="prototype">
         <constructor-arg>
-            <bean class="java.util.Date"/>
+            <bean class="java.util.Date" />
         </constructor-arg>
-        <constructor-arg>
-            <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
-        </constructor-arg>
+        <constructor-arg ref="dateFormat" />
     </bean>
+
+    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance" />
+
+    <bean id="monitor" class="spring.core.util.Monitor"/>
+    <bean id="awared" class="spring.core.util.AwareBean" init-method="init"/>
 </beans>
