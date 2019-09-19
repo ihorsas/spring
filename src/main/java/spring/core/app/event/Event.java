@@ -1,4 +1,4 @@
-package spring.core.app;
+package spring.core.app.event;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -58,7 +58,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return "spring.core.app.Event{" +
+        return "spring.core.app.event.Event{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
                 ", date=" + df.format(date) +

@@ -1,7 +1,7 @@
 package spring.core.app.logger;
 
 import org.apache.commons.io.FileUtils;
-import spring.core.app.Event;
+import spring.core.app.event.Event;
 
 import java.io.File;
 import java.io.IOException;

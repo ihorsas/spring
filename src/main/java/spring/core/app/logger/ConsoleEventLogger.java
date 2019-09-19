@@ -1,6 +1,6 @@
 package spring.core.app.logger;
 
-import spring.core.app.Event;
+import spring.core.app.event.Event;
 
 public class ConsoleEventLogger implements EventLogger{
 

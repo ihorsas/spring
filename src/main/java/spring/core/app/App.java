@@ -2,23 +2,36 @@ package spring.core.app;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spring.core.app.logger.EventLogger;
+import spring.core.app.event.Event;
+import spring.core.app.event.EventType;
+import spring.core.app.logger.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class App {
     private Client client;
+    Map<EventType, EventLogger> loggers;
     private EventLogger eventLogger;
 
     private App() {
     }
-
-    public App(Client client, EventLogger eventLogger) {
+    //TODO: should be Map<EventType, List<EventLogger>>
+    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
         this.client = client;
         this.eventLogger = eventLogger;
+        this.loggers = loggers;
     }
 
-    public void logEvent(Event event) {
-//        msg = msg.replaceAll(String.valueOf(client.getId()), client.getFullName());
-        eventLogger.logEvent(event);
+    public void logEvent(EventType type, Event event) {
+        EventLogger logger = loggers.get(type);
+        if(logger == null)
+            logger = eventLogger;
+        logger.logEvent(event);
+    }
+
+    public void init(){
+        loggers = new HashMap<EventType, EventLogger>();
     }
 
     public static void main(String[] args) {
@@ -26,8 +39,10 @@ public class App {
 
         App app = (App) context.getBean("app");
         app.client = new Client(1, "Igor Sas");
-
-        app.logEvent((Event) context.getBean("event"));
+        Event event = (Event) context.getBean("event");
+        event.setId(app.client.getId());
+        event.setMessage(app.client.getGreeting());
+        app.logEvent(EventType.INFO, event);
         context.close();
     }
 }

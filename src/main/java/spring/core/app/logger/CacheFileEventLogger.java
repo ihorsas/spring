@@ -1,8 +1,9 @@
 package spring.core.app.logger;
 
-import spring.core.app.Event;
+import spring.core.app.event.Event;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CacheFileEventLogger extends FileEventLogger {
@@ -37,6 +38,7 @@ public class CacheFileEventLogger extends FileEventLogger {
     @Override
     public void init() throws IOException {
         super.init();
+        cache = new ArrayList<Event>();
     }
 
     public void destroy() {

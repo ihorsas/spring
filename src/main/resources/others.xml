@@ -6,14 +6,23 @@
     <bean id="client" class="spring.core.app.Client">
         <constructor-arg index="0" value="1"/>
         <constructor-arg index="1" value="Igor Sas"/>
+        <property name="greeting" value="Yo, nigga ^-^"/>
     </bean>
 
-    <bean id="app" class="spring.core.app.App">
+    <bean id="app" class="spring.core.app.App" init-method="init">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="fileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO"
+                       value-ref="consoleEventLogger"/>
+                <entry key="ERROR"
+                       value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
-    <bean id="event" class="spring.core.app.Event" scope="prototype">
+    <bean id="event" class="spring.core.app.event.Event" scope="prototype">
         <constructor-arg>
             <bean class="java.util.Date"/>
         </constructor-arg>
