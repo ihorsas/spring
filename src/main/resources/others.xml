@@ -25,15 +25,7 @@
         <entry key="ERROR" value-ref="combinedEventLogger"/>
     </util:map>
 
-    <bean id="app" class="spring.core.app.App">
-    </bean>
-
-    <bean id="event" class="spring.core.app.event.Event" scope="prototype">
-        <constructor-arg>
-            <bean class="java.util.Date"/>
-        </constructor-arg>
-        <constructor-arg ref="dateFormat"/>
-    </bean>
+    <bean id="app" class="spring.core.app.App"/>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 

@@ -2,6 +2,7 @@ package spring.core.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import spring.core.app.event.Event;
@@ -18,11 +19,14 @@ public class App {
     @Autowired
     @Qualifier("loggerMap")
     private Map<EventType, EventLogger> loggers;
-    @Autowired
-    @Qualifier("consoleEventLogger")
     private EventLogger eventLogger;
 
     private App() {
+    }
+
+    @Autowired
+    public App(@Value("#{ T(spring.core.app.event.Event).isDay() ? fileEventLogger : consoleEventLogger }") EventLogger eventLogger){
+        this.eventLogger = eventLogger;
     }
 
     //TODO: should be Map<EventType, List<EventLogger>>

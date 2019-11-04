@@ -2,6 +2,7 @@ package spring.core.app.event;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Event {
     private int id;
@@ -22,6 +23,13 @@ public class Event {
     public Event(Date date, DateFormat df) {
         this.date = date;
         this.df = df;
+    }
+
+
+    public static boolean isDay() {
+        TimeZone timeZone
+                = TimeZone.getTimeZone("Europe/Kiev");
+        return timeZone.inDaylightTime(new Date());
     }
 
     public int getId() {
