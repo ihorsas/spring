@@ -3,6 +3,7 @@ package spring.core.app.logger;
 import org.apache.commons.io.FileUtils;
 import spring.core.app.event.Event;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class FileEventLogger implements EventLogger {
         }
     }
 
+    @PostConstruct
     public void init() throws IOException {
         this.file = new File(filename);
         if (file.canWrite())

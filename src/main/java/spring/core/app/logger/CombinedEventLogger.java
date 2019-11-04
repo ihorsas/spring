@@ -2,6 +2,7 @@ package spring.core.app.logger;
 
 import spring.core.app.event.Event;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class CombinedEventLogger implements EventLogger{
         this.loggers = loggers;
     }
 
+    @PostConstruct
     public void init() {
         this.loggers = new ArrayList<EventLogger>();
     }

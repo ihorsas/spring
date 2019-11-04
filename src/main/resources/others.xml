@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util
+        https://www.springframework.org/schema/util/spring-util.xsd
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ 		http://www.springframework.org/schema/context
+ 		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="spring"/>
 
     <bean id="client" class="spring.core.app.Client"
           p:greeting="${greeting}">
@@ -16,9 +26,6 @@
     </util:map>
 
     <bean id="app" class="spring.core.app.App">
-        <constructor-arg ref="client"/>
-        <constructor-arg ref="cacheEventLogger"/>
-        <constructor-arg ref="loggerMap"/>
     </bean>
 
     <bean id="event" class="spring.core.app.event.Event" scope="prototype">

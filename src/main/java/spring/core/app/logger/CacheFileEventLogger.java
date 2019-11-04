@@ -2,6 +2,8 @@ package spring.core.app.logger;
 
 import spring.core.app.event.Event;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +37,14 @@ public class CacheFileEventLogger extends FileEventLogger {
         }
     }
 
+    @PostConstruct
     @Override
     public void init() throws IOException {
         super.init();
         cache = new ArrayList<Event>();
     }
 
+    @PreDestroy
     public void destroy() {
         if (!cache.isEmpty())
             writeToFile();
