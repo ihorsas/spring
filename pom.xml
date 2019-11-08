@@ -37,11 +37,23 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.3</version>
+        </dependency>
 
     </dependencies>
 
     <properties>
-        <spring.version>5.1.9.RELEASE</spring.version>
+        <spring.version>5.2.0.RELEASE</spring.version>
     </properties>
     
 </project>

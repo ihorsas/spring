@@ -24,11 +24,6 @@ public class App {
     private App() {
     }
 
-    @Autowired
-    public App(@Value("#{ T(spring.core.app.event.Event).isDay() ? fileEventLogger : consoleEventLogger }") EventLogger eventLogger){
-        this.eventLogger = eventLogger;
-    }
-
     //TODO: should be Map<EventType, List<EventLogger>>
     public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
         this.client = client;
@@ -36,10 +31,13 @@ public class App {
         this.loggers = loggers;
     }
 
+    @Autowired
+    public void setEventLogger(@Value("#{ T(spring.core.app.event.Event).isDay() ? fileEventLogger : consoleEventLogger }") EventLogger eventLogger) {
+        this.eventLogger = eventLogger;
+    }
+
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-//        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-
         App app = (App) context.getBean("app");
         Event event = (Event) context.getBean("event");
         event.setId(app.client.getId());
