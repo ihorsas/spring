@@ -21,7 +21,7 @@ public class App {
     private Map<EventType, EventLogger> loggers;
     private EventLogger eventLogger;
 
-    private App() {
+    public App() {
     }
 
     //TODO: should be Map<EventType, List<EventLogger>>
